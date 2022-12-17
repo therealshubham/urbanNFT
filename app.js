@@ -20,6 +20,10 @@ app.set('layout', 'layouts/layout');
 app.use(expressLayouts);
 app.use(express.static('public'));
 
+// some middlewares to parse POST data
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
 // sanity check for launch
 console.log("Starting UrbanNFT...");
 
