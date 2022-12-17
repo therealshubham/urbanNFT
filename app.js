@@ -12,6 +12,8 @@ const expressLayouts = require('express-ejs-layouts');
 
 // get routers from controllers (routes)
 const indexRouter = require('./routes/index');
+const loginRouter = require('./routes/login');
+const registerRouter = require('./routes/register');
 
 // setup basics
 app.set('view engine', 'ejs');
@@ -29,6 +31,8 @@ console.log("Starting UrbanNFT...");
 
 // send all traffic to index router in routes
 app.use('/', indexRouter);
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
 
 // listen at the port, default to 3000
 app.listen(process.env.PORT || 3000);
