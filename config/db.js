@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const conn = 'mongodb://shubham:Sg1253***@http://156.67.210.61:27017/urbannft';
+const conn = process.env.DB_STRING;
 
-const connection = mongoose.createConnection(conn, {
+var connection = mongoose.createConnection(conn, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
     salt: String
 });
 
-const User = connection.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 
 // Expose the connection
 module.exports = connection;
