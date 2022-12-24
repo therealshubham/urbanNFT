@@ -15,6 +15,9 @@ const expressLayouts = require('express-ejs-layouts');
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
+const dashboardRouter = require('./routes/dashboard');
+const myCollectionRouter = require('./routes/my-collection');
+const mintRouter = require('./routes/mint');
 
 // setup basics
 app.set('view engine', 'ejs');
@@ -59,6 +62,9 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
+app.use('/dashboard', dashboardRouter);
+app.use('/my-collection', myCollectionRouter);
+app.use('/mint', mintRouter);
 
 // listen at the port, default to 3000
 app.listen(process.env.PORT || 3000);
