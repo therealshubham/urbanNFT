@@ -1,21 +1,20 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+mongoose.set('strictQuery', false);
 const conn = process.env.DB_STRING;
 
-var connection = mongoose.createConnection(conn, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+function mongoInitConnection() {
+    mongoose.connect(conn).then(
+        data => {
+            console.log(`Connected to MongoDB: ${data.connection.host} @ ${data.connection.name}`);
+        }
+    ).catch(
+        e => {
+            console.log(e);
+        }
+    );
+}
 
-// Creates simple schema for a User.  The hash and salt are derived from the user's given password when they register
-const UserSchema = new mongoose.Schema({
-    username: String,
-    hash: String,
-    salt: String
-});
-
-const User = mongoose.model('User', UserSchema);
-
-// Expose the connection
-module.exports = connection;
+// Expose the connection function
+module.exports.mongoInitConnection = mongoInitConnection;

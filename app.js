@@ -44,13 +44,17 @@ app.use(session({
     }
 }));
 
+// sanity check for launch
+console.log("Starting UrbanNFT...");
+
+// init the mongoDB connection
+const db = require("./config/db");
+db.mongoInitConnection();
+
 // Need to require the entire Passport config module so app.js knows about it
 require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
-
-// sanity check for launch
-console.log("Starting UrbanNFT...");
 
 app.use((req, res, next) => {
     console.log(req.session);
