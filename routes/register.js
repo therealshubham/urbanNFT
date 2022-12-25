@@ -7,25 +7,53 @@ const User = require('./../config/models/user');
 
 // handle the traffic
 router.get('/', (req, res) => {
-    res.render('register/index');
+    var data = {
+        'error' : {
+            'display' : 'none',
+            'data' : ''
+        }
+    };
+
+    if(req.query.error) {
+        data['error'] = utils.errorViewHandler({'name' : 'error', 'code' : req.query.error});
+    }
+
+    console.log(req.body);
+
+    res.render('register/index', data);
 });
 
-router.post('/', (req, res) => {
-    
-    console.log(req.body);
+router.post('/', async (req, res) => {
+
+    if(!req.body.username || !req.body.name || !req.body.password) {
+        res.redirect('/register?error=4');
+        return;
+    }
+
+    if(req.body.password != req.body.cpassword) {
+        res.redirect('/register?error=3'); 
+        return;
+    }
+
+    const tempUser = await User.findOne({username: req.body.username});
+    if(tempUser) {
+        res.redirect('/register?error=2'); 
+        return;
+    }
+
     const saltHash = utils.genPassword(req.body.password);
-    
     const salt = saltHash.salt;
     const hash = saltHash.hash;
 
     const newUser = new User({
         username: req.body.username,
         hash: hash,
-        salt: salt
+        salt: salt,
+        name: req.body.name
     });
 
     newUser.save().then((user) => {
-        console.log(user);
+        console.log("New User:", user);
     });
 
     res.redirect('/login');

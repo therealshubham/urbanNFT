@@ -2,6 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const utils = require('./models/utils');
 
 // passport.js & session & db
 const session = require('express-session');
@@ -40,7 +41,7 @@ app.use(session({
         collection: 'sessions' 
     }),
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 1 // 1 day
+        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
     }
 }));
 
@@ -57,18 +58,28 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-    console.log(req.session);
     console.log(req.user);
     next();
 });
 
 // send all traffic to index router in routes
 app.use('/', indexRouter);
-app.use('/login', loginRouter);
-app.use('/register', registerRouter);
-app.use('/dashboard', dashboardRouter);
-app.use('/my-collection', myCollectionRouter);
-app.use('/mint', mintRouter);
+app.use('/login', utils.loggedInAlready, loginRouter);
+app.use('/register', utils.loggedInAlready, registerRouter);
+app.use('/dashboard', utils.ensureAuthenticated, dashboardRouter);
+app.use('/my-collection', utils.ensureAuthenticated, myCollectionRouter);
+app.use('/mint', utils.ensureAuthenticated, mintRouter);
+
+app.get('/logout', (req, res) => {
+    req.logout(
+        (err) => {
+            if (err) { 
+                return next(err); 
+            }
+            res.redirect('/');
+        }
+    );
+});
 
 // listen at the port, default to 3000
 app.listen(process.env.PORT || 3000);

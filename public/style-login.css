@@ -47,3 +47,10 @@ input[type="text"], input[type="password"], input[type="email"] {
     outline: none;
     background: none;
 }
+
+.error {
+    padding: 5px;
+    color: white;
+    background-color: rgb(177, 0, 0);
+    font-size: 20px;
+}

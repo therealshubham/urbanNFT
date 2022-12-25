@@ -4,9 +4,14 @@
     Login to the world of NFTs...
 </div>
 
+<div class="sub-title">
+    Don't have an account? <a href="/register">Create one</a>!
+</div>
+
 <div class="login-wrapper">
     <div class="login-form">
         <form action="/login" method="post" class="form">
+            <div class="error" style="display: <%= error.display %> ;"> <%= error.data %>  </div>
             <label for="username">Your username or e-mail</label>
             <input type="text" name="username" id="username" required>
             <label for="password">Your super secret password</label>
