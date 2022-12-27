@@ -1,12 +1,20 @@
 const mongoose = require('mongoose');
 
-// Creates simple schema for a User.  The hash and salt are derived from the user's given password when they register
+// Creates simple schema for a User. 
 const UserSchema = new mongoose.Schema({
     username: String,
     hash: String,
     salt: String,
-    name: String
-});
+    name: String,
+    files: [
+        {
+            originalName: String,
+            storedName: String,
+            owner: String,
+            type: String
+        }
+    ]
+}, {typeKey: '$type'});
 
 const User = mongoose.model('User', UserSchema);
 
