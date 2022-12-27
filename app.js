@@ -70,6 +70,7 @@ app.use('/dashboard', utils.ensureAuthenticated, dashboardRouter);
 app.use('/my-collection', utils.ensureAuthenticated, myCollectionRouter);
 app.use('/mint', utils.ensureAuthenticated, mintRouter);
 
+// log out route
 app.get('/logout', (req, res) => {
     req.logout(
         (err) => {
