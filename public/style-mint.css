@@ -10,7 +10,7 @@
 }
 
 .collection-item {
-    max-width: 300px;
+    max-width: 200px;
     flex-grow: 1;
     display: flex;
     flex-flow: column;
@@ -29,12 +29,80 @@
 }
 
 .collection-item_image {
-    height: 300px;
-    width: 300px;
+    height: 200px;
+    width: 200px;
     background-color: rgb(205, 205, 205);
 }
 
 .collection-item_desc {
     text-align: center;
     padding: 5px;
+}
+
+.login-wrapper {
+    margin-top: 15px;
+    display: none;
+}
+
+.login-form {
+    max-width: 60vw;
+    margin: auto;
+}
+
+.form {
+    position: relative;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    border: 1px solid black;
+    box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.75);
+}
+
+.form > * {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+input[type="submit"] {
+	background: #0055aa;
+    padding: 10px;
+	color: white;
+	border: 1px solid #0055aa;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+	background: white;
+	color: #0055aa;
+    transition: 0.2s;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+    outline: none;
+    background: none;
+}
+
+.error {
+    padding: 5px;
+    color: white;
+    background-color: rgb(177, 0, 0);
+    font-size: 20px;
+}
+
+#mint-form-asset {
+    color: #0055aa;
+    padding: 15px;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
 }

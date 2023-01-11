@@ -1,11 +1,14 @@
 // get express & make router
 const express = require('express');
 const router = express.Router();
+require('dotenv').config({ path: './../.env'});
 
 const upload = require('./../config/multer');
 const User = require('./../config/models/user');
 
-var data = {};
+var data = {
+    url: process.env.BASE_URL
+};
 
 // handle the traffic
 router.get('/', async (req, res) => {
@@ -35,7 +38,7 @@ router.post('/', upload.single('user_file'), async (req, res) => {
         tempUser.files.push(newFile);
         await tempUser.save();
     }
-    
+
     res.redirect('/mint');
     return;
 });

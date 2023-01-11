@@ -17,11 +17,15 @@
             <% for( let index = 0; index < user.files.length; index++ ) { %>
                 <div class="collection-item" data-id="<%= user.files[index].storedName %>">
                     <div class="collection-item_image">
-                        <img src="<%= 'http://localhost:3000/assets/' + user.files[index].storedName %>" alt="" width="300">
+                        <img src="<%= url + '/assets/' + user.files[index].storedName %>" alt="" width="200">
                     </div>
                     <div class="collection-item_options">
-                        <button>Mint</button>
-                        <button data-id="<%= user.files[index].storedName %>" onclick="handleDelete()">Delete</button>
+                        <% if (user.files[index].isMinted === false) { %>
+                            <button data-id="<%= user.files[index].storedName %>" data-name="<%= user.files[index].originalName %>" onclick="handleMint()">Mint</button>
+                            <button data-id="<%= user.files[index].storedName %>" onclick="handleDelete()">Delete</button>
+                        <% } else { %>
+                            <div class="minted">MINTED!</div>
+                        <% } %>
                     </div>
                     <div class="collection-item_desc">
                         <%= user.files[index].originalName %> 
@@ -30,7 +34,33 @@
             <% } %>
         </div>
     </div>
+    <div class="login-wrapper">
+        <div class="login-form">
+            <form action="/mint" method="post" class="form" id="mint">
+                <span id="mint-form-asset">LOL</span>
+                <div class="error" style="display: none;"> There was an error! </div>
+                
+                <label for="wallet">Enter your wallet address.</label>
+                <input type="text" name="wallet" id="wallet" placeholder="0xc0C83..." required>
+                
+                <label for="name">Name of the NFT?</label>
+                <input type="text" name="name" id="name" placeholder="My first NFT..!" required>
+                
+                <label for="description">Give a description?</label>
+                <input type="text" name="description" id="description" placeholder="Isn't this cool?" required>
+                
+                <input type="submit" value="MINT IT NOW!">
+            </form>
+        </div>
+    </div>
 <% } %>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
@@ -63,5 +93,52 @@
             alert("Your file could not be deleted! Please try again later :/");
         }
     }
+
+    var userHash = '<%= user.hash %>';
+    var photoId = undefined;
+
+    async function handleMint() {
+        var id = this.event.target.getAttribute('data-id');
+        var name = this.event.target.getAttribute('data-name');
+        photoId = id;
+
+        var mintFormWrapper = document.querySelector('.login-wrapper');
+        mintFormWrapper.style.display = 'block';
+
+        var mintIndicator = document.querySelector('#mint-form-asset');
+        mintIndicator.innerHTML = "-xx- minting " + name + " -xx-";
+    }
     
+    var form = document.querySelector('.form');
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var data = new FormData(document.forms.mint);
+        var addr = data.get('wallet');
+        var name = data.get('name');
+        var description = data.get('description');
+
+        var res = await axios({
+            url: '/api/mint',
+            method: 'post',
+            data: {
+                id: photoId,
+                addr: addr,
+                name: name,
+                description: description
+            }
+        });
+
+        console.log(res.data);
+
+        if(res.data.error == 1) {
+            alert(res.data.note);
+            return;
+        }
+
+        var item = document.querySelector(`.collection-item[data-id="${photoId}"] > .collection-item_options`);
+        item.innerHTML = `<div class="minted">MINTED!</div>`;
+
+        return;
+    });
+
 </script>

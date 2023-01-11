@@ -9,6 +9,10 @@ const account = web3.eth.accounts.privateKeyToAccount(process.env.MATIC_WALLET_P
 
 const contract = new web3.eth.Contract(ABI, addr);
 
+function checkAddress(addr) {
+    return web3.utils.isAddress(addr);
+}
+
 function getSmartContract() {
 	return contract;
 }
@@ -28,6 +32,7 @@ async function executeTransaction(transaction) {
 
 module.exports.executeTransaction = executeTransaction;
 module.exports.getSmartContract = getSmartContract;
+module.exports.checkAddress = checkAddress;
 
 // sample transaction
 // const transaction = contract.methods.safeMint(receiver, "https://api.npoint.io/c219633efcecf665edca");
