@@ -49,7 +49,8 @@ router.post('/', async (req, res) => {
         username: req.body.username,
         hash: hash,
         salt: salt,
-        name: req.body.name
+        name: req.body.name,
+        mintTokens: 0
     });
 
     newUser.save().then((user) => {

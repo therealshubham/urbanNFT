@@ -3,15 +3,23 @@ const express = require('express');
 const router = express.Router();
 
 const upload = require('./../config/multer');
+const User = require('./../config/models/user');
+
+var data = {};
 
 // handle the traffic
-router.get('/', (req, res) => {
-    res.render('mint/index');
+router.get('/', async (req, res) => {
+    const user = await User.findOne({username: req.user.username});
+    data.user = user;
+    res.render('mint/index', data);
 });
 
-router.post('/', upload.single('user_file'), (req, res) => {
-    console.log(req.file, req.body);
-    res.render('mint/index');
+// handle the upload POST request
+router.post('/', upload.single('user_file'), async (req, res) => {
+    // console.log(req.file, req.body);
+    const user = await User.findOne({username: req.user.username});
+    data.user = user;
+    res.render('mint/index', data);
 });
 
 // export the router

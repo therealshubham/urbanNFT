@@ -6,7 +6,7 @@ const User = require('./models/user');
 // set up file upload handler
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, './tmp/assets/');
+        cb(null, './public/assets/');
     },
     filename: async (req, file, cb) => {
         const tempUser = await User.findOne({username: req.user.username});
@@ -17,7 +17,8 @@ const storage = multer.diskStorage({
             'originalName' : file.originalname,
             'storedName' : storedName,
             'owner' : req.user.username,
-            'type' : file.mimetype
+            'type' : file.mimetype,
+            'isMinted' : false
         };
 
         tempUser.files.push(newFile);

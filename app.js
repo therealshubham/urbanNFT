@@ -19,6 +19,7 @@ const registerRouter = require('./routes/register');
 const dashboardRouter = require('./routes/dashboard');
 const myCollectionRouter = require('./routes/my-collection');
 const mintRouter = require('./routes/mint');
+const apiRouter = require('./routes/api');
 
 // setup basics
 app.set('view engine', 'ejs');
@@ -69,6 +70,7 @@ app.use('/register', utils.loggedInAlready, registerRouter);
 app.use('/dashboard', utils.ensureAuthenticated, dashboardRouter);
 app.use('/my-collection', utils.ensureAuthenticated, myCollectionRouter);
 app.use('/mint', utils.ensureAuthenticated, mintRouter);
+app.use('/api', utils.ensureAuthenticated, apiRouter);
 
 // log out route
 app.get('/logout', (req, res) => {

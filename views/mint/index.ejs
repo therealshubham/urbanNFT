@@ -1,13 +1,67 @@
-<script>
-    var login = document.querySelectorAll(".header-item");
-    login[4].innerHTML = `<a class="link" href="/logout">Logout</a>`;
-</script>
+<link rel="stylesheet" href="style-mint.css">
 
 <div class="title">
     Mint your NFT
 </div>
 
 <form action="/mint" method="POST" enctype="multipart/form-data">
-    <input type="file" name="user_file" id="file">
+    <input type="file" name="user_file" id="file" required>
     <input type="submit" value="UPLOAD">
 </form>
+
+<br>
+
+<% if (user.files.length) { %>
+    <div class="collection-wrapper">
+        <div class="collection-row">
+            <% for( let index = 0; index < user.files.length; index++ ) { %>
+                <div class="collection-item" data-id="<%= user.files[index].storedName %>">
+                    <div class="collection-item_image">
+                        <img src="<%= 'http://localhost:3000/assets/' + user.files[index].storedName %>" alt="" width="300">
+                    </div>
+                    <div class="collection-item_options">
+                        <button>Mint</button>
+                        <button data-id="<%= user.files[index].storedName %>" onclick="handleDelete()">Delete</button>
+                    </div>
+                    <div class="collection-item_desc">
+                        <%= user.files[index].originalName %> 
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+<% } %>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    
+    // fix for log out
+    var login = document.querySelectorAll(".header-item");
+    login[4].innerHTML = `<a class="link" href="/logout">Logout</a>`;
+
+    // to prevent resubmit on refresh
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+
+    // handle delete of image
+    async function handleDelete() {
+        var id = this.event.target.getAttribute('data-id');
+        var res = await axios({
+            url: '/api/delete',
+            method: 'post',
+            data: {
+                'hash' : '<%= user.hash %>',
+                'id' : id
+            }
+        });
+        console.log(res.data);
+        if(res.data.error === 0) {
+            var item = document.querySelector(`.collection-item[data-id="${id}"]`);
+            item.remove();
+        } else {
+            alert("Your file could not be deleted! Please try again later :/");
+        }
+    }
+    
+</script>

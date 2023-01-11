@@ -6,12 +6,14 @@ const UserSchema = new mongoose.Schema({
     hash: String,
     salt: String,
     name: String,
+    mintTokens: Number,
     files: [
         {
             originalName: String,
             storedName: String,
             owner: String,
-            type: String
+            type: String,
+            isMinted: Boolean
         }
     ]
 }, {typeKey: '$type'});
