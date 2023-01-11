@@ -9,27 +9,25 @@ const storage = multer.diskStorage({
         cb(null, './public/assets/');
     },
     filename: async (req, file, cb) => {
-        const tempUser = await User.findOne({username: req.user.username});
-        if(!tempUser) cb(new Error("User not found, please log out and try again!"), 'null');
-        
         const storedName = req.user.username + '-' + Date.now() + path.extname(file.originalname);
-        var newFile = {
-            'originalName' : file.originalname,
-            'storedName' : storedName,
-            'owner' : req.user.username,
-            'type' : file.mimetype,
-            'isMinted' : false
-        };
-
-        tempUser.files.push(newFile);
-        tempUser.save();
-
+        req.body.storedName = storedName;
         cb(null, storedName);
     }
 });
 
 const upload = multer({
-    storage: storage
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    },
+    limits: { 
+        fileSize: 4 * 1024 * 1024 
+    }
 });
 
 module.exports = upload
