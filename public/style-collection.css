@@ -5,6 +5,7 @@
 .collection-row {
     display: flex;
     flex-flow: row;
+    overflow: auto;
 }
 
 .collection-item {

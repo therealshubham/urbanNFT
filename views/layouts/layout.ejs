@@ -8,10 +8,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <!-- Top Navigation Menu for Mobile -->
+    <div class="mobile-header">
+        <a href="/" class="active">UrbanNFT</a>
+        <div id="mobile-header_links">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/my-collection">My Collection</a>
+            <a href="/mint">Mint</a>
+            <a id="login-link" href="/login">Log In</a>
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="toggleMobileHeader()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+
+    <!-- Top Navigation Menu for Desktop -->
     <div class="header">
         <div class="header-item"><a href="/">Home</a></div>
         <div class="header-item"><a href="/dashboard">Dashboard</a></div>
@@ -25,5 +41,16 @@
     <div class="footer">
         UrbanNFT &#169; 2023
     </div>
+
+    <script>
+        function toggleMobileHeader() {
+          var x = document.getElementById("mobile-header_links");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+    </script>
 </body>
 </html>

@@ -84,6 +84,8 @@
     // fix for log out
     var login = document.querySelectorAll(".header-item");
     login[4].innerHTML = `<a class="link" href="/logout">Logout</a>`;
+    document.querySelector('#login-link').innerHTML = 'Log out';
+    document.querySelector('#login-link').href = '/logout';
 
     // to prevent resubmit on refresh
     if (window.history.replaceState) {
@@ -112,11 +114,20 @@
 
     var userHash = '<%= user.hash %>';
     var photoId = undefined;
+    var lastSelected = undefined;
 
     async function handleMint() {
         var id = this.event.target.getAttribute('data-id');
         var name = this.event.target.getAttribute('data-name');
         photoId = id;
+
+        if(this.event.target !== lastSelected) {
+            this.event.target.innerHTML = "Selected";
+            if(lastSelected != undefined) {
+                lastSelected.innerHTML = "Select";
+            }
+            lastSelected = this.event.target;
+        }
 
         var mintFormWrapper = document.querySelector('.login-wrapper');
         mintFormWrapper.style.display = 'block';

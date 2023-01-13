@@ -62,12 +62,18 @@
     background-color: #0055aa;
     border: 1px solid #0055aa;
     color: white;
-    width: 70px;
+    width: 80px;
 }
 
 .collection-item_options_button:hover {
     background-color: white;
     color: #0055aa;
+}
+
+.selected {
+    background-color: white;
+    color: #007c30 !important;
+    border: 1px solid #007c30;
 }
 
 .minted {
