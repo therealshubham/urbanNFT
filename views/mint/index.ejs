@@ -4,60 +4,76 @@
     Mint your NFT
 </div>
 
-<form action="/mint" method="POST" enctype="multipart/form-data">
-    <input type="file" name="user_file" id="file" required>
-    <input type="submit" value="UPLOAD">
-</form>
+<div class="step-wrapper">
+    <div class="step-heading">Step 1</div>
+    <div class="step-sub-heading">First upload the image you want to mint!</div>
+    <div class="step-content">
+        <form action="/mint" method="post" enctype="multipart/form-data" class="upload-form">
+            <input type="file" name="user_file" id="file" required>
+            <input type="submit" value="UPLOAD">
+        </form>
+    </div>
+</div>
 
-<br>
-
-<% if (user.files.length) { %>
-    <div class="collection-wrapper">
-        <div class="collection-row">
-            <% for( let index = 0; index < user.files.length; index++ ) { %>
-                <div class="collection-item" data-id="<%= user.files[index].storedName %>">
-                    <div class="collection-item_image">
-                        <img src="<%= url + '/assets/' + user.files[index].storedName %>" alt="" width="200">
-                    </div>
-                    <div class="collection-item_options">
-                        <% if (user.files[index].isMinted === false) { %>
-                            <button data-id="<%= user.files[index].storedName %>" data-name="<%= user.files[index].originalName %>" onclick="handleMint()">Mint</button>
-                            <button data-id="<%= user.files[index].storedName %>" onclick="handleDelete()">Delete</button>
-                        <% } else { %>
-                            <div class="minted">MINTED!</div>
-                        <% } %>
-                    </div>
-                    <div class="collection-item_desc">
-                        <%= user.files[index].originalName %> 
-                    </div>
+<div class="step-wrapper">
+    <div class="step-heading">Step 2</div>
+    <div class="step-sub-heading">Now select the image you want as the NFT...</div>
+    <div class="step-content">
+        <% if (user.files.length) {
+            user.files = user.files.reverse();
+        %>
+            <div class="collection-wrapper">
+                <div class="collection-row">
+                    <% for( let index = 0; index < user.files.length; index++ ) { %>
+                        <div class="collection-item" data-id="<%= user.files[index].storedName %>">
+                            <div class="collection-item_image">
+                                <img src="<%= url + '/assets/' + user.files[index].storedName %>" alt="" width="200">
+                            </div>
+                            <div class="collection-item_options">
+                                <% if (user.files[index].isMinted === false) { %>
+                                    <button class="collection-item_options_button" data-id="<%= user.files[index].storedName %>" data-name="<%= user.files[index].originalName %>" onclick="handleMint()">Select</button>
+                                    <button class="collection-item_options_button" data-id="<%= user.files[index].storedName %>" onclick="handleDelete()">Delete</button>
+                                <% } else { %>
+                                    <div class="minted">MINTED!</div>
+                                <% } %>
+                            </div>
+                            <div class="collection-item_desc">
+                                <%= user.files[index].originalName %> 
+                            </div>
+                        </div>
+                    <% } %>
                 </div>
-            <% } %>
-        </div>
+            </div>
+        <% } %>
     </div>
-    <div class="login-wrapper">
-        <div class="login-form">
-            <form action="/mint" method="post" class="form" id="mint">
-                <span id="mint-form-asset">LOL</span>
-                <div class="error" style="display: none;"> There was an error! </div>
-                
-                <label for="wallet">Enter your wallet address.</label>
-                <input type="text" name="wallet" id="wallet" placeholder="0xc0C83..." required>
-                
-                <label for="name">Name of the NFT?</label>
-                <input type="text" name="name" id="name" placeholder="My first NFT..!" required>
-                
-                <label for="description">Give a description?</label>
-                <input type="text" name="description" id="description" placeholder="Isn't this cool?" required>
-                
-                <input type="submit" value="MINT IT NOW!">
-            </form>
-        </div>
-    </div>
-<% } %>
+</div>
 
-<br>
-<br>
-<br>
+<div class="step-wrapper">
+    <div class="step-heading">Step 3</div>
+    <div class="step-sub-heading">Enter your details and wait for the magic ;)</div>
+    <div class="step-content">
+        <div class="login-wrapper">
+            <div class="login-form">
+                <form action="/mint" method="post" class="form" id="mint">
+                    <span id="mint-form-asset">LOL</span>
+                    <div class="error" style="display: none;"> There was an error! </div>
+                    
+                    <label for="wallet">Enter your wallet address.</label>
+                    <input type="text" name="wallet" id="wallet" placeholder="0xc0C83..." required>
+                    
+                    <label for="name">Name of the NFT?</label>
+                    <input type="text" name="name" id="name" placeholder="My first NFT..!" required>
+                    
+                    <label for="description">Give a description?</label>
+                    <input type="text" name="description" id="description" placeholder="Isn't this cool?" required>
+                    
+                    <input type="submit" value="MINT IT NOW!">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <br>
 <br>
 <br>

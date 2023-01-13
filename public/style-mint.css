@@ -1,12 +1,20 @@
+.upload-form > input[type="submit"] {
+	background: #0055aa;
+    padding: 5px 10px;
+	color: white;
+	border: 1px solid #0055aa;
+	cursor: pointer;
+}
+
 .collection-wrapper {
-    padding: 0px 30px;
+    padding: 0px 0px;
 }
 
 .collection-row {
     display: flex;
     flex-flow: row;
     overflow: auto;
-    padding: 20px;
+    padding-bottom: 10px;
 }
 
 .collection-item {
@@ -14,6 +22,7 @@
     flex-grow: 1;
     display: flex;
     flex-flow: column;
+    border: 1px solid black;
     box-shadow: 5px 5px 0px 0px rgba(189, 189, 189, 0.75);
     -webkit-box-shadow: 5px 5px 0px 0px rgba(61, 61, 61, 0.75);
     -moz-box-shadow: 5px 5px 0px 0px rgba(61, 61, 61, 0.75);
@@ -21,7 +30,6 @@
 }
 
 .collection-item:hover {
-    border: 1px solid black;
     box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.75);
@@ -37,21 +45,51 @@
 .collection-item_desc {
     text-align: center;
     padding: 5px;
+    padding-bottom: 10px;
+    overflow-wrap: break-word;
+}
+
+.collection-item_options {
+    padding: 5px 5px 0 5px;
+    text-align: center;
+}
+
+.collection-item_options_button {
+	border: none;
+	font: inherit;
+	cursor: pointer;
+    padding: 3px 10px;
+    background-color: #0055aa;
+    border: 1px solid #0055aa;
+    color: white;
+    width: 70px;
+}
+
+.collection-item_options_button:hover {
+    background-color: white;
+    color: #0055aa;
+}
+
+.minted {
+    text-align: center;
+    padding: 5px;
+    color: #b90300;
+    font-weight: 600;
+    border: 1px solid #b90300;
 }
 
 .login-wrapper {
-    margin-top: 15px;
     display: none;
 }
 
 .login-form {
-    max-width: 60vw;
-    margin: auto;
+    max-width: 500px;
+    /* margin: auto; */
 }
 
 .form {
     position: relative;
-    padding-top: 40px;
+    padding-top: 20px;
     padding-bottom: 40px;
     padding-left: 15px;
     padding-right: 15px;
@@ -59,9 +97,9 @@
     flex-flow: column;
     text-align: center;
     border: 1px solid black;
-    box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.75);
+    /* box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.75);
     -webkit-box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.75); */
 }
 
 .form > * {
@@ -100,9 +138,35 @@ input[type="text"], input[type="password"], input[type="email"] {
 
 #mint-form-asset {
     color: #0055aa;
-    padding: 15px;
+    padding: 5px;
     position: absolute;
     display: block;
-    top: 0;
+    bottom: 0;
     left: 0;
+    right: 0;
+    overflow-wrap: break-word;
+}
+
+.step-wrapper {
+    padding: 10px;
+    border: 1px solid black;
+    box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.75);
+    margin-bottom: 30px;
+}
+
+.step-heading {
+    font-size: 25px;
+    font-weight: 800;
+    color: #0055aa;
+}
+
+.step-sub-heading {
+    font-size: 20px;
+    color: black;
+}
+
+.step-content {
+    padding: 10px;
 }

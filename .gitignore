@@ -10,7 +10,8 @@ lerna-debug.log*
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # public images
-public/assets
+public/assets/*
+public/json/*
 
 # Runtime data
 pids
