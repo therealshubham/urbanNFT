@@ -1,10 +1,12 @@
-@import url('/american_typewriter_regular.ttf');
+@font-face {
+    font-family: 'American Typewriter';
+    src: url('/fonts/american_typewriter_regular.ttf');
+}
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    /* font-family: 'American Typewriter'; */
     font-family: 'American Typewriter';
 }
 

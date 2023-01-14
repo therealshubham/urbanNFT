@@ -81,8 +81,8 @@ router.post('/mint', async (req, res) => {
         // mint the NFT
         var contract = web3utils.getSmartContract();
         const transaction = contract.methods.safeMint(req.body.addr, jsonUrl);
-        // var web3res = await web3utils.executeTransaction(transaction);
-        // console.log(web3res);
+        var web3res = await web3utils.executeTransaction(transaction);
+        console.log(web3res);
         for(var i = 0; i < user.files.length; i++) {
             if(user.files[i].storedName === req.body.id) {
                 user.files[i].isMinted = true;

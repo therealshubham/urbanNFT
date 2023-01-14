@@ -50,7 +50,7 @@ router.post('/', async (req, res) => {
         hash: hash,
         salt: salt,
         name: req.body.name,
-        mintTokens: 0
+        mintTokens: 3
     });
 
     newUser.save().then((user) => {
