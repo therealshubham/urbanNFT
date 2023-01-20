@@ -50,7 +50,7 @@
 
 <div class="step-wrapper">
     <div class="step-heading">Step 3</div>
-    <div class="step-sub-heading">Enter your details and wait for the magic ;)</div>
+    <div class="step-sub-heading">Enter your details and wait for the magic ;) You have <b><%= user.mintTokens %></b> mint token(s) left...</div>
     <div class="step-content">
         <div class="login-wrapper">
             <div class="login-form">
@@ -72,6 +72,10 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="loader" id="load">
+    Loading...   
 </div>
 
 <br>
@@ -144,6 +148,8 @@
         var name = data.get('name');
         var description = data.get('description');
 
+        document.querySelector('#load').style.display = 'block';
+
         var res = await axios({
             url: '/api/mint',
             method: 'post',
@@ -156,6 +162,7 @@
         });
 
         console.log(res.data);
+        document.querySelector('#load').style.display = 'none';
 
         if(res.data.error == 1) {
             alert(res.data.note);

@@ -54,7 +54,6 @@ router.post('/mint', async (req, res) => {
             return; 
         }
         user.mintTokens = user.mintTokens - 1;
-        await user.save();
 
         // check for valid addr format
         if(web3utils.checkAddress(req.body.addr) == false) {
@@ -82,7 +81,7 @@ router.post('/mint', async (req, res) => {
         var contract = web3utils.getSmartContract();
         const transaction = contract.methods.safeMint(req.body.addr, jsonUrl);
         var web3res = await web3utils.executeTransaction(transaction);
-        console.log(web3res);
+        // console.log(web3res);
         for(var i = 0; i < user.files.length; i++) {
             if(user.files[i].storedName === req.body.id) {
                 user.files[i].isMinted = true;
@@ -90,6 +89,8 @@ router.post('/mint', async (req, res) => {
                 break;
             }
         }
+
+        await user.save();
 
         // respond
         res.json({"error" : 0, "note" : `Minted!!`}); 
